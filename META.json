@@ -52,7 +52,21 @@
       }
    },
    "release_status" : "unstable",
+   "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/masakyst/Catalyst-View-MicroTemplate-DataSection/issues"
+      },
+      "homepage" : "https://github.com/masakyst/Catalyst-View-MicroTemplate-DataSection",
+      "repository" : {
+         "type" : "git",
+         "url" : "git://github.com/masakyst/Catalyst-View-MicroTemplate-DataSection.git",
+         "web" : "https://github.com/masakyst/Catalyst-View-MicroTemplate-DataSection"
+      }
+   },
    "version" : "0.01",
    "x_authority" : "cpan:MASAKYST",
+   "x_contributors" : [
+      "Masaaki Saito <masakyst.mobile@gmail.com>"
+   ],
    "x_serialization_backend" : "JSON::PP version 2.27203"
 }

@@ -9,6 +9,12 @@ our $VERSION = "0.01";
 extends 'Catalyst::View';
 with 'Catalyst::Component::ApplicationAttribute';
 
+has section => (
+    is  => 'rw',
+    isa => 'Str',
+    lazy_build => 1,
+);
+
 has context => (
     is  => 'rw',
     isa => 'Catalyst',
@@ -45,17 +51,20 @@ has engine => (
 );
 
 
-use Data::Dumper;
-
 sub ACCEPT_CONTEXT {
     my ($self, $c) = @_; 
     $self->context($c);
     return $self;
 }
 
+sub _build_section {
+    my ($self) = @_;
+    return $self->context->action->class;
+}
+
 sub _build_engine {
     my ($self) = @_;
-    return Text::MicroTemplate::DataSection->new(package => $self->context->action->class);
+    return Text::MicroTemplate::DataSection->new(package => $self->section);
 }
 
 sub render {
@@ -69,17 +78,21 @@ sub process {
     my $template = $c->stash->{template} || $c->action->name;
     my $body     = $self->render($c, $template);
 
-    my $res = $c->response;
-    if (! $res->content_type) {
-        $res->content_type('text/html; charset=' . $self->charset);
+    if (! $c->res->content_type) {
+        $c->res->content_type($self->content_type.'; charset=' . $self->charset);
     }   
+    if (blessed $body && $body->can('as_string')) {
+        $body = $body->as_string;
+    }   
+    $c->res->body($body);
 
-    if ( $self->encode_body ) { 
-        $res->body(encode($self->charset, $body));
-    }   
-    else {
-        $res->body( $body );
-    }   
+    # not implemented yet ...
+    #if ( $self->encode_body ) { 
+    #    $res->body(encode($self->charset, $body));
+    #}   
+    #else {
+    #    $res->body( $body );
+    #}   
 }
 
 __PACKAGE__->meta->make_immutable();
@@ -94,14 +107,43 @@ Catalyst::View::MicroTemplate::DataSection - Text::MicroTemplate::DataSection Vi
 
 =head1 SYNOPSIS
 
+    # subclassing to making your view class
+    package MyApp::View::DataSection;
+    use Moose;
+    extends 'Catalyst::View::MicroTemplate::DataSection';
+    1;
+
+    # using in a controller
+    sub index :Path :Args(0) {
+        my ( $self, $c ) = @_; 
+        $c->stash->{username} = 'masakyst';
+    }
+    ...
+    ..
+    __PACKAGE__->meta->make_immutable;
+
+    1;
+    __DATA__
+   
+    @@ index.mt
+    ? my $stash = shift;
+    hello <?= $stash->{username} ?> !!
+
 
 =head1 DESCRIPTION
 
-    package MyApp::View::MicroTemplate::DataSection;
-    use Moose;
-    extends 'Catalyst::View::MicroTemplate::DataSection';
+Catalyst::View::MicroTemplate::DataSection is simple wrapper module allows you to render MicroTemplate template from __DATA__ section in Catalyst controller.
 
-    1;
+=head1 SEE ALSO
+
+=over 1
+
+=item L<Text::MicroTemplate::DataSection>
+
+=item L<Data::Section::Simple>
+
+=back
+
 
 =head1 LICENSE
 
