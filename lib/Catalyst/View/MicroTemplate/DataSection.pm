@@ -125,9 +125,9 @@ Catalyst::View::MicroTemplate::DataSection - Text::MicroTemplate::DataSection Vi
 
 Catalyst::View::MicroTemplate::DataSection is simple wrapper module allows you to render MicroTemplate template from __DATA__ section in Catalyst controller.
 
-=head2
+=head2 One file .psgi example
 
-One file .psgi example (plackup -a hello.psgi)
+plackup -a hello.psgi
 
     package Hello::View::MicroTemplate::DataSection {
         use Moose; extends 'Catalyst::View::MicroTemplate::DataSection';
