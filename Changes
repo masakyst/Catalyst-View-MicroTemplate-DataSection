@@ -2,6 +2,9 @@ Revision history for Perl extension Catalyst-View-MicroTemplate-DataSection
 
 {{$NEXT}}
 
+    - support multiple file encoding
+    - add documents (one file .psgi)
+
 0.01 2015-09-28T04:01:57Z
 
     - original version
