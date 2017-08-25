@@ -4,7 +4,7 @@
       "Masaaki Saito <masakyst.public@gmail.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Minilla/v3.0.9, CPAN::Meta::Converter version 2.150010",
+   "generated_by" : "Minilla/v3.0.13, CPAN::Meta::Converter version 2.150005",
    "license" : [
       "perl_5"
    ],
@@ -66,10 +66,10 @@
          "web" : "https://github.com/masakyst/Catalyst-View-MicroTemplate-DataSection"
       }
    },
-   "version" : "0.03",
+   "version" : "0.04",
    "x_authority" : "cpan:MASAKYST",
    "x_contributors" : [
       "Masaaki Saito <masakyst.mobile@gmail.com>"
    ],
-   "x_serialization_backend" : "JSON::PP version 2.27400"
+   "x_serialization_backend" : "JSON::PP version 2.27300_01"
 }
